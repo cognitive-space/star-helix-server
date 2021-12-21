@@ -1,0 +1,29 @@
+[project]
+name = "star-helix-server"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Paul Bailey", email = "paul.bailey@cognitivespace.com"},
+]
+dependencies = [
+    "django",
+    "dj-database-url",
+    "psycopg2-binary",
+]
+requires-python = ">=3.9"
+license = {text = "MIT"}
+
+[project.urls]
+homepage = ""
+
+[tool]
+[tool.pdm]
+
+[build-system]
+requires = ["pdm-pep517"]
+build-backend = "pdm.pep517.api"
+
+[tool.pdm.scripts]
+_.env_file = ".env"
+migrate = "python manage.py migrate"
+manage = "python manage.py"
