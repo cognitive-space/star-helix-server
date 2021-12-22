@@ -13,9 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+import shelix.ui.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('stash/v1/', include('shelix.stash.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns.append(path('uploads/<path:file>', shelix.ui.views.uploads),)

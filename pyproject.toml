@@ -9,6 +9,10 @@ dependencies = [
     "django",
     "dj-database-url",
     "psycopg2-binary",
+    "haikunator",
+    "redis>=4.0.2",
+    "hiredis>=2.0.0",
+    "huey>=2.4.2",
 ]
 requires-python = ">=3.9"
 license = {text = "MIT"}
