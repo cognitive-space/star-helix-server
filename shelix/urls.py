@@ -24,5 +24,5 @@ urlpatterns = [
     path('stash/v1/', include('shelix.stash.urls')),
 ]
 
-if settings.DEBUG:
+if settings.DEFAULT_FILE_STORAGE == 'django.core.files.storage.FileSystemStorage':
     urlpatterns.append(path('uploads/<path:file>', shelix.ui.views.uploads),)

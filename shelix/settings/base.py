@@ -133,3 +133,5 @@ CACHES = {
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "static-compiled"
+
+from shelix.settings.storage import *
