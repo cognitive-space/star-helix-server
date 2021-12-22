@@ -5,6 +5,28 @@ requires_python = ">=3.6"
 summary = "ASGI specs, helper code, and adapters"
 
 [[package]]
+name = "boto3"
+version = "1.20.26"
+requires_python = ">= 3.6"
+summary = "The AWS SDK for Python"
+dependencies = [
+    "botocore<1.24.0,>=1.23.26",
+    "jmespath<1.0.0,>=0.7.1",
+    "s3transfer<0.6.0,>=0.5.0",
+]
+
+[[package]]
+name = "botocore"
+version = "1.23.26"
+requires_python = ">= 3.6"
+summary = "Low-level, data-driven core of boto 3."
+dependencies = [
+    "jmespath<1.0.0,>=0.7.1",
+    "python-dateutil<3.0.0,>=2.1",
+    "urllib3<1.27,>=1.25.4",
+]
+
+[[package]]
 name = "deprecated"
 version = "1.2.13"
 requires_python = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
@@ -30,6 +52,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "django-storages"
+version = "1.12.3"
+requires_python = ">=3.5"
+summary = "Support for many storage backends in Django"
+dependencies = [
+    "Django>=2.2",
+]
+
+[[package]]
 name = "haikunator"
 version = "2.1.0"
 summary = "Heroku-like random name generator for python."
@@ -46,10 +77,25 @@ version = "2.4.2"
 summary = "huey, a little task queue"
 
 [[package]]
+name = "jmespath"
+version = "0.10.0"
+requires_python = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
+summary = "JSON Matching Expressions"
+
+[[package]]
 name = "psycopg2-binary"
 version = "2.9.2"
 requires_python = ">=3.6"
 summary = "psycopg2 - Python-PostgreSQL Database Adapter"
+
+[[package]]
+name = "python-dateutil"
+version = "2.8.2"
+requires_python = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
+summary = "Extensions to the standard Python datetime module"
+dependencies = [
+    "six>=1.5",
+]
 
 [[package]]
 name = "redis"
@@ -59,6 +105,21 @@ summary = "Python client for Redis database and key-value store"
 dependencies = [
     "deprecated",
 ]
+
+[[package]]
+name = "s3transfer"
+version = "0.5.0"
+requires_python = ">= 3.6"
+summary = "An Amazon S3 Transfer Manager"
+dependencies = [
+    "botocore<2.0a.0,>=1.12.36",
+]
+
+[[package]]
+name = "six"
+version = "1.16.0"
+requires_python = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
+summary = "Python 2 and 3 compatibility utilities"
 
 [[package]]
 name = "sqlparse"
@@ -73,6 +134,12 @@ requires_python = ">=2"
 summary = "Provider of IANA time zone data"
 
 [[package]]
+name = "urllib3"
+version = "1.26.7"
+requires_python = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
+summary = "HTTP library with thread-safe connection pooling, file post, and more."
+
+[[package]]
 name = "wrapt"
 version = "1.13.3"
 requires_python = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
@@ -80,12 +147,20 @@ summary = "Module for decorators, wrappers and monkey patching."
 
 [metadata]
 lock_version = "3.1"
-content_hash = "sha256:5f3801ef32992d322cc8d2bfa56bdc902f581538b2472d986da22ed3377d8eda"
+content_hash = "sha256:de18d434c66ea7857575bc8ef052297e9ce20d24497a575a0703427432b83faf"
 
 [metadata.files]
 "asgiref 3.4.1" = [
     {file = "asgiref-3.4.1-py3-none-any.whl", hash = "sha256:ffc141aa908e6f175673e7b1b3b7af4fdb0ecb738fc5c8b88f69f055c2415214"},
     {file = "asgiref-3.4.1.tar.gz", hash = "sha256:4ef1ab46b484e3c706329cedeff284a5d40824200638503f5768edb6de7d58e9"},
+]
+"boto3 1.20.26" = [
+    {file = "boto3-1.20.26-py3-none-any.whl", hash = "sha256:e8787a7f7c212d5b469dd8b998560c1b8e63badad5ceefb8331f4580386af044"},
+    {file = "boto3-1.20.26.tar.gz", hash = "sha256:9c13f5c8fadf29088fac5feab849399169b6e8438c3b9a2310abdb7e5013ab65"},
+]
+"botocore 1.23.26" = [
+    {file = "botocore-1.23.26-py3-none-any.whl", hash = "sha256:298f4d4e29504f65f73e8f78084f830af45cec49087d7d8fcf09481e243b26ec"},
+    {file = "botocore-1.23.26.tar.gz", hash = "sha256:0a933e3af6ecf79666beb2dfcb52a60f8ad1fee7df507f2a9202fe26fe569483"},
 ]
 "deprecated 1.2.13" = [
     {file = "Deprecated-1.2.13-py2.py3-none-any.whl", hash = "sha256:64756e3e14c8c5eea9795d93c524551432a0be75629f8f29e67ab8caf076c76d"},
@@ -98,6 +173,10 @@ content_hash = "sha256:5f3801ef32992d322cc8d2bfa56bdc902f581538b2472d986da22ed33
 "django 4.0" = [
     {file = "Django-4.0-py3-none-any.whl", hash = "sha256:59304646ebc6a77b9b6a59adc67d51ecb03c5e3d63ed1f14c909cdfda84e8010"},
     {file = "Django-4.0.tar.gz", hash = "sha256:d5a8a14da819a8b9237ee4d8c78dfe056ff6e8a7511987be627192225113ee75"},
+]
+"django-storages 1.12.3" = [
+    {file = "django_storages-1.12.3-py3-none-any.whl", hash = "sha256:204a99f218b747c46edbfeeb1310d357f83f90fa6a6024d8d0a3f422570cee84"},
+    {file = "django-storages-1.12.3.tar.gz", hash = "sha256:a475edb2f0f04c4f7e548919a751ecd50117270833956ed5bd585c0575d2a5e7"},
 ]
 "haikunator 2.1.0" = [
     {file = "haikunator-2.1.0-py2.py3-none-any.whl", hash = "sha256:66f68b15345b279f78a5fffd4ab56cfb19a9dbb1f41b7f442472efd4cb83458e"},
@@ -149,6 +228,10 @@ content_hash = "sha256:5f3801ef32992d322cc8d2bfa56bdc902f581538b2472d986da22ed33
 "huey 2.4.2" = [
     {file = "huey-2.4.2.tar.gz", hash = "sha256:20683288e27e851f786b38465784c5d0e7e2b93b8791cc826898f9555a320cb4"},
 ]
+"jmespath 0.10.0" = [
+    {file = "jmespath-0.10.0-py2.py3-none-any.whl", hash = "sha256:cdf6525904cc597730141d61b36f2e4b8ecc257c420fa2f4549bac2c2d0cb72f"},
+    {file = "jmespath-0.10.0.tar.gz", hash = "sha256:b85d0567b8666149a93172712e68920734333c0ce7e89b78b3e987f71e5ed4f9"},
+]
 "psycopg2-binary 2.9.2" = [
     {file = "psycopg2_binary-2.9.2-cp310-cp310-macosx_10_14_x86_64.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64.whl", hash = "sha256:c0e1fb7097ded2cc44d9037cfc68ad86a30341261492e7de95d180e534969fb2"},
     {file = "psycopg2_binary-2.9.2-cp310-cp310-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:717525cdc97b23182ff6f470fb5bf6f0bc796b5a7000c6f6699d6679991e4a5e"},
@@ -187,9 +270,21 @@ content_hash = "sha256:5f3801ef32992d322cc8d2bfa56bdc902f581538b2472d986da22ed33
     {file = "psycopg2_binary-2.9.2-cp39-cp39-win_amd64.whl", hash = "sha256:aa2847d8073951dbc84c4f8b32c620764db3c2eb0d99a04835fecfab7d04816e"},
     {file = "psycopg2-binary-2.9.2.tar.gz", hash = "sha256:234b1f48488b2f86aac04fb00cb04e5e9bcb960f34fa8a8e41b73149d581a93b"},
 ]
+"python-dateutil 2.8.2" = [
+    {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
+    {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
+]
 "redis 4.0.2" = [
     {file = "redis-4.0.2-py3-none-any.whl", hash = "sha256:c8481cf414474e3497ec7971a1ba9b998c8efad0f0d289a009a5bbef040894f9"},
     {file = "redis-4.0.2.tar.gz", hash = "sha256:ccf692811f2c1fc7a92b466aa2599e4a6d2d73d5f736a2c70be600657c0da34a"},
+]
+"s3transfer 0.5.0" = [
+    {file = "s3transfer-0.5.0-py3-none-any.whl", hash = "sha256:9c1dc369814391a6bda20ebbf4b70a0f34630592c9aa520856bf384916af2803"},
+    {file = "s3transfer-0.5.0.tar.gz", hash = "sha256:50ed823e1dc5868ad40c8dc92072f757aa0e653a192845c94a3b676f4a62da4c"},
+]
+"six 1.16.0" = [
+    {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
+    {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
 ]
 "sqlparse 0.4.2" = [
     {file = "sqlparse-0.4.2-py3-none-any.whl", hash = "sha256:48719e356bb8b42991bdbb1e8b83223757b93789c00910a616a071910ca4a64d"},
@@ -198,6 +293,10 @@ content_hash = "sha256:5f3801ef32992d322cc8d2bfa56bdc902f581538b2472d986da22ed33
 "tzdata 2021.5" = [
     {file = "tzdata-2021.5-py2.py3-none-any.whl", hash = "sha256:3eee491e22ebfe1e5cfcc97a4137cd70f092ce59144d81f8924a844de05ba8f5"},
     {file = "tzdata-2021.5.tar.gz", hash = "sha256:68dbe41afd01b867894bbdfd54fa03f468cfa4f0086bfb4adcd8de8f24f3ee21"},
+]
+"urllib3 1.26.7" = [
+    {file = "urllib3-1.26.7-py2.py3-none-any.whl", hash = "sha256:c4fdf4019605b6e5423637e01bc9fe4daef873709a7973e195ceba0a62bbc844"},
+    {file = "urllib3-1.26.7.tar.gz", hash = "sha256:4987c65554f7a2dbf30c18fd48778ef124af6fab771a377103da0585e2336ece"},
 ]
 "wrapt 1.13.3" = [
     {file = "wrapt-1.13.3-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:e05e60ff3b2b0342153be4d1b597bbcfd8330890056b9619f4ad6b8d5c96a81a"},

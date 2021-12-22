@@ -13,6 +13,8 @@ dependencies = [
     "redis>=4.0.2",
     "hiredis>=2.0.0",
     "huey>=2.4.2",
+    "django-storages>=1.12.3",
+    "boto3>=1.20.26",
 ]
 requires-python = ">=3.9"
 license = {text = "MIT"}
