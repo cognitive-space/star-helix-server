@@ -9,7 +9,9 @@ from django.conf import settings
 from django.contrib import auth
 from django.core.handlers.asgi import ASGIRequest
 
-from shelix.stash.models import Log, LogChunk
+import jwt
+
+from shelix.stash.models import Log, LogChunk, LoggingToken
 
 logger = logging.getLogger(__name__)
 
@@ -38,16 +40,19 @@ def add_websocket(app):
     return websocket_app
 
 
-def save_log(data):
+def save_log(token_id, data):
+    token = LoggingToken.objects.filter(id=token_id, active=True).first()
     log = Log.objects.filter(id=data['log_id']).first()
 
-    if log:
+    if token and log:
         chunk = LogChunk(content=data['content'], log=log)
         chunk.save()
 
 
 async def recv_log_socket(scope, receive, send):
     request = AsyncRequest(scope, None)
+    token = request.GET['token']
+    token = jwt.decode(token)
     await sync_to_async(init_request, thread_sensitive=True)(request)
 
     while 1:
@@ -63,4 +68,4 @@ async def recv_log_socket(scope, receive, send):
 
         elif event['type'] == 'websocket.receive':
             data = json.loads(event['text'])
-            await sync_to_async(save_log, thread_sensitive=True)(data)
+            await sync_to_async(save_log, thread_sensitive=True)(token['id'], data)

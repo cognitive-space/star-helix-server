@@ -3,10 +3,24 @@ from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
-from shelix.stash.models import Log, LogChunk
+import jwt
+
+from shelix.stash.models import Log, LogChunk, LoggingToken
+
+
+class require_token:
+    def __init__(self, target):
+        self.target = target
+
+    def __call__(self, request, *args, **kwargs):
+        token = request.POST['token']
+        token = jwt.decode(token)
+        request.token = get_object_or_404(LoggingToken, id=token['id'], active=True)
+        return self.target(request, *args, **kwargs)
 
 
 @csrf_exempt
+@require_token
 def start_log(request):
     app = request.POST.get('app')
 
@@ -16,6 +30,7 @@ def start_log(request):
 
 
 @csrf_exempt
+@require_token
 def end_log(request):
     log_id = request.POST.get('log_id')
     log = get_object_or_404(Log, id=log_id)
@@ -26,6 +41,7 @@ def end_log(request):
 
 
 @csrf_exempt
+@require_token
 def save_log(request):
     log_id = request.POST.get('log_id')
     logs = request.POST.get('logs', '')

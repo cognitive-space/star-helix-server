@@ -1,11 +1,34 @@
 import time
 
-from django.db import models
+from django.conf import settings
 from django.core.files.base import ContentFile
+from django.db import models
 
+import jwt
 from haikunator import Haikunator
 
 from shelix.stash.queue import log_queue
+
+
+class LoggingToken(models.Model):
+    active = models.BooleanField(default=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True, db_index=True)
+
+    @property
+    def token(self):
+        if self.id and self.active:
+            encoded_jwt = jwt.encode(
+                {"id": self.id},
+                settings.SECRET_KEY,
+                algorithm="HS256"
+            )
+            return encoded_jwt
+
+        return ''
+
+    def __str__(self):
+        return str(self.id)
 
 
 class Log(models.Model):

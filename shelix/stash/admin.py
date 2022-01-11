@@ -1,7 +1,15 @@
 from django.contrib import admin
 
 
-from shelix.stash.models import Log, LogChunk
+from shelix.stash.models import Log, LogChunk, LoggingToken
+
+
+@admin.register(LoggingToken)
+class TokenAdmin(admin.ModelAdmin):
+    list_display = ('id', 'token', 'active', 'modified')
+    list_filter = ('active',)
+    search_fields = ('id',)
+    date_hierarchy = 'modified'
 
 
 @admin.register(Log)
