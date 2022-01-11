@@ -52,7 +52,7 @@ def save_log(token_id, data):
 async def recv_log_socket(scope, receive, send):
     request = AsyncRequest(scope, None)
     token = request.GET['token']
-    token = jwt.decode(token)
+    token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
     await sync_to_async(init_request, thread_sensitive=True)(request)
 
     while 1:

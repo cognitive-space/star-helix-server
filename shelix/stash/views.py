@@ -14,7 +14,7 @@ class require_token:
 
     def __call__(self, request, *args, **kwargs):
         token = request.POST['token']
-        token = jwt.decode(token)
+        token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
         request.token = get_object_or_404(LoggingToken, id=token['id'], active=True)
         return self.target(request, *args, **kwargs)
 
