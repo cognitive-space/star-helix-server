@@ -40,6 +40,7 @@ def add_websocket(app):
 
 def save_log(data):
     log = Log.objects.filter(id=data['log_id']).first()
+
     if log:
         chunk = LogChunk(content=data['content'], log=log)
         chunk.save()
