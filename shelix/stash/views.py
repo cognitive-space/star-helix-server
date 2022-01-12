@@ -1,4 +1,5 @@
 from django import http
+from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
