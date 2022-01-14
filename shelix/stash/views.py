@@ -84,7 +84,7 @@ def get_log_content(request):
         filters['created__gt'] = after
 
     content = ''
-    last_ts = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(seconds=60)
+    last_ts = None
 
     for chunk in LogChunk.objects.filter(**filters).order_by('created')[:100]:
         last_ts = chunk.created
@@ -96,7 +96,11 @@ def get_log_content(request):
             content += chunk.content
 
     resp = http.HttpResponse(content, content_type='text/plain')
-    resp['Lastchunk'] = last_ts.isoformat()
+    if last_ts:
+        resp['Lastchunk'] = last_ts.isoformat()
+
+    else:
+        resp['Lastchunk'] = ''
 
     if log.end_ts:
         resp['Endlog'] = log.end_ts.isoformat()
