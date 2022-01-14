@@ -44,7 +44,7 @@ def save_log(token_id, data):
     token = LoggingToken.objects.filter(id=token_id, active=True).first()
     log = Log.objects.filter(id=data['log_id']).first()
 
-    if token and log:
+    if token and log and data['content']:
         chunk = LogChunk(content=data['content'], log=log)
         chunk.save()
 
