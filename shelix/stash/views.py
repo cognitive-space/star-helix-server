@@ -96,6 +96,6 @@ def get_log_content(request):
             content += chunk.content
 
     resp = http.HttpResponse(content, content_type='text/plain')
-    resp['LastChunk'] = last_ts.isoformat()
+    resp['Lastchunk'] = last_ts.isoformat()
 
     return resp
