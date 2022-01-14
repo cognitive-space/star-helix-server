@@ -98,4 +98,10 @@ def get_log_content(request):
     resp = http.HttpResponse(content, content_type='text/plain')
     resp['Lastchunk'] = last_ts.isoformat()
 
+    if log.end_ts:
+        resp['Endlog'] = log.end_ts.isoformat()
+
+    else:
+        resp['Endlog'] = ''
+
     return resp
