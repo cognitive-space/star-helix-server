@@ -24,3 +24,4 @@ class ChunkAdmin(admin.ModelAdmin):
     list_display = ('log', 'created')
     search_fields = ('log__app',)
     date_hierarchy = 'created'
+    raw_id_fields = ('log',)

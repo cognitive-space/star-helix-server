@@ -1,3 +1,5 @@
+import datetime
+
 from django import http
 from django.conf import settings
 from django.shortcuts import get_object_or_404
@@ -14,7 +16,12 @@ class require_token:
         self.target = target
 
     def __call__(self, request, *args, **kwargs):
-        token = request.POST['token']
+        try:
+            token = request.POST['token']
+
+        except:
+            raise http.Http404
+
         token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
         request.token = get_object_or_404(LoggingToken, id=token['id'], active=True)
         return self.target(request, *args, **kwargs)
@@ -56,3 +63,39 @@ def save_log(request):
         return http.JsonResponse({'status': 'received', 'timestamp': chunk.created.isoformat()})
 
     return http.JsonResponse({'status': 'empty'})
+
+
+@csrf_exempt
+@require_token
+def get_log_content(request):
+    log_id = request.POST.get('log_id')
+    after = request.POST.get('after')
+
+    log = get_object_or_404(Log, id=log_id)
+    filters = {'log': log}
+
+    if after:
+        try:
+            after = datetime.datetime.fromisoformat(after)
+
+        except:
+            return http.HttpResponse('Bad Time Format', content_type='text/plain', status_code=400)
+
+        filters['created__gt'] = after
+
+    content = ''
+    last_ts = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(seconds=60)
+
+    for chunk in LogChunk.objects.filter(**filters).order_by('created')[:100]:
+        last_ts = chunk.created
+
+        if chunk.content is None:
+            pass
+
+        else:
+            content += chunk.content
+
+    resp = http.HttpResponse(content, content_type='text/plain')
+    resp['LastChunk'] = last_ts.isoformat()
+
+    return resp
